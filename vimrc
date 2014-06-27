@@ -59,7 +59,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"                   " mak
 
 set showcmd " show commands in the status bar
 " by default we go with 4 space indent and spaces
-set expandtab       " Replace tabs by spaces
+set expandtab
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
@@ -81,8 +81,10 @@ map <c-l> <c-w>l
 " save yourself if you forgot to use sudo to save something
 cmap w!! w !sudo tee % >/dev/null
 
-" Simple align
-vmap <Enter> <Plug>(EasyAlign)
+" tabularize shortcut
+vmap = :Tabularize /=><CR>
+vmap " :Tabularize /"<CR>
+nnoremap <silent> <leader>t= :Tabularize /=><CR>
 
 " If we are using Javascript, we need 2 spaces indents and not tabs
 autocmd FileType javascript set sw=2
