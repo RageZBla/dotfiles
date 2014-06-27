@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/olivier/public_html/secure-natureasia/japan/login'
+let g:netrw_dirhist_2='/home/git/repositories/ecadmin.git'
+let g:netrw_dirhist_3='/home/olivier/public_html/riken/application/default/config'
