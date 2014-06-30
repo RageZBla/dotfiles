@@ -40,8 +40,13 @@ let g:phpgetset_setterTemplate =
      \ "         return $this;\n" .
      \ "    }"
 
-" disable autofolding by default
-let g:DisableAutoPHPFolding = 1
+set nofoldenable                   " disable code folding
+let g:DisableAutoPHPFolding = 1    " disable autofolding for PHP
+let g:PIVCreateDefaultMappings = 0 " disable creation of default mapping
+let g:pdv_cfg_foldmarke = 0        " disable generation of fold marker for docblocks
+" PIV PHP shortcuts - create single docblock in PHP
+nmap <leader>Pd <plug>PIVphpDocSingle
+vmap <leader>Pd <plug>PIVphpDocRange
 
 " Pathogen plugin management
 call pathogen#infect()      " Load plugin
@@ -82,8 +87,8 @@ map <c-l> <c-w>l
 cmap w!! w !sudo tee % >/dev/null
 
 " tabularize shortcut
-vmap = :Tabularize /=><CR>
-vmap " :Tabularize /"<CR>
+vmap t= :Tabularize /=><CR>
+vmap t" :Tabularize /"<CR>
 nnoremap <silent> <leader>t= :Tabularize /=><CR>
 
 " If we are using Javascript, we need 2 spaces indents and not tabs
