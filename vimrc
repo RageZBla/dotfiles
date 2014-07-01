@@ -1,17 +1,17 @@
 set nocompatible " Disable vi compatibility
 
 " vim-airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-set noshowmode
-
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = "solarized"
-let g:airline_solarized_bg = "dark"
-set laststatus=2
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+" let g:airline_symbols.space = "\ua0"
+" set noshowmode
+"
+" let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline_theme = "solarized"
+" let g:airline_solarized_bg = "dark"
+" set laststatus=2
 
 " Getter/Setter generation
 let g:phpgetset_getterTemplate =
@@ -53,6 +53,12 @@ call pathogen#infect()      " Load plugin
 call pathogen#helptags()    " Load plugin help files
 syntax on                   " Syntax highlighting on
 filetype plugin indent on   " Use filetype plugins
+
+" powerline
+set rtp+=~/dotfiles/powerline/powerline/bindings/vim
+let g:Powerline_symbols = 'fancy'
+set laststatus=2
+set noshowmode
 
 " Neocomplete
 let g:neocomplete#enable_at_startup = 1   " Start it
@@ -145,9 +151,10 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " vimrc
 autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
-
+set term=xterm-256color
+set termencoding=utf-8
 " Color scheme
-set t_Co=16
+set t_Co=256
 set background=dark
 let g:solarized_contrast="normal"
 let g:solarized_visibility="high"
@@ -160,7 +167,8 @@ if has("gui_running")
     au GUIEnter * set vb t_vb=
 
     " Set font
-    set guifont=Inconsolata\ Bold\ 12
+    set guifont=Inconsolata\ for\ Powerline\ Bold\ 12
+
 
     " remove superfluous chrome
     set guioptions-=m

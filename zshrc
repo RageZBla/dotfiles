@@ -52,7 +52,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export TERM="xterm-256color"
-export PATH="/home/likewise-open/MPL/o.lechevalier/software/Sencha/Cmd/3.1.2.342:/home/likewise-open/MPL/o.lechevalier/software/Sencha/Cmd/3.0.2.288:/home/likewise-open/MPL/o.lechevalier/software/Sencha/Cmd/3.1.2.342:/home/likewise-open/MPL/o.lechevalier/software/Sencha/Cmd/3.0.2.288:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="/home/likewise-open/MPL/o.lechevalier/software/Sencha/Cmd/3.1.2.342:/home/likewise-open/MPL/o.lechevalier/software/Sencha/Cmd/3.0.2.288:/home/likewise-open/MPL/o.lechevalier/software/Sencha/Cmd/3.1.2.342:/home/likewise-open/MPL/o.lechevalier/software/Sencha/Cmd/3.0.2.288:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/likewise-open/MPL/o.lechevalier/dotfiles/powerline/scripts"
+export LANG=en_US.utf8
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
