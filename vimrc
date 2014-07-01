@@ -264,4 +264,3 @@ set modelines=5    " Enable mode line to tell vim what to do of odd files
 
 " reload vimrc automatically
 autocmd! bufwritepost .vimrc source %
-
