@@ -1,18 +1,5 @@
 set nocompatible " Disable vi compatibility
 
-" vim-airline
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-" let g:airline_symbols.space = "\ua0"
-" set noshowmode
-"
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline_theme = "solarized"
-" let g:airline_solarized_bg = "dark"
-" set laststatus=2
-
 " Getter/Setter generation
 let g:phpgetset_getterTemplate =
      \ "    \n" .
@@ -65,6 +52,13 @@ let g:neocomplete#enable_at_startup = 1   " Start it
 let g:neocomplete#enable_auto_select = 0  " Disable autoselect
 let g:neocomplete#max_list = 25           " show 25 results in popup
 
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"   " return neocomplete#close_popup() . "\<CR>"
+"   " For no inserting <CR> key.
+"   return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+" endfunction
+
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags " customize omni completion
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"                   " make tab select entry
 
@@ -97,10 +91,22 @@ vmap t= :Tabularize /=><CR>
 vmap t" :Tabularize /"<CR>
 nnoremap <silent> <leader>t= :Tabularize /=><CR>
 
+" Ultisnup
+if (has('gui_running'))
+  let g:UltiSnipsExpandTrigger="<C-CR>"
+else
+  let g:UltiSnipsExpandTrigger="<C-J>"
+endif
+
 " If we are using Javascript, we need 2 spaces indents and not tabs
 autocmd FileType javascript set sw=2
 autocmd FileType javascript set ts=2
 autocmd FileType javascript set sts=2
+
+" If we are using PHP, we need 2 spaces indents and not tabs
+autocmd FileType php set sw=4
+autocmd FileType php set ts=4
+autocmd FileType php set sts=4
 
 " Nerdtree support
 map <C-n> :NERDTreeToggle<CR>
@@ -151,7 +157,6 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " vimrc
 autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
-set term=xterm-256color
 set termencoding=utf-8
 " Color scheme
 set t_Co=256
@@ -180,7 +185,8 @@ if has("gui_running")
     set guioptions-=l
     set guioptions-=r
     set guioptions-=b
-
+else
+    set term=xterm-256color
 endif
 
 let mapleader = "\<Space>" " space as leader key
@@ -204,6 +210,16 @@ set smartcase  " Be smart about case sensitivity when searching
 " Shortcut to yanking to the system clipboard
 map <leader>y "+y
 map <leader>p "+p
+
+" bla
+fun! <SID>PasteFromTmux()
+    set paste
+    startinsert
+    !tmux paste-buffer -p
+    !tmux send-keys Escape ":set nopaste" Enter
+endfun
+
+map <leader>P :call <SID>PasteFromTmux()<CR>
 
 " Expand in command mode to the path of the currently open file
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
@@ -272,3 +288,20 @@ set modelines=5    " Enable mode line to tell vim what to do of odd files
 
 " reload vimrc automatically
 autocmd! bufwritepost .vimrc source %
+
+" test tmux
+  let &t_ti = &t_ti . "\e[?2004h"
+  let &t_te = "\e[?2004l" . &t_te
+  let &pastetoggle = "\e[201~"
+  map <F10> <Esc>[201~
+  imap <F10> <Esc>[201~
+
+  function! XTermPasteBegin(ret)
+    set paste
+    return a:ret
+  endfunction
+
+  map <special> <expr> <Esc>[200~ XTermPasteBegin("i")
+  imap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+  cmap <special> <Esc>[200~ <nop>
+  cmap <special> <Esc>[201~ <nop>
