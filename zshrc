@@ -71,3 +71,12 @@ export EDITOR='vim'
 
 # Solarized ls output
 eval `dircolors ~/git/dircolors-solarized/dircolors.ansi-dark`
+
+# Disable flow control commands (keeps C-s from freezing everything)
+stty start undef
+stty stop undef
+
+# sourcing other files
+source $HOME/dotfiles/zsh/aliases
+source $HOME/dotfiles/zsh/prompt
+

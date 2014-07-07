@@ -1,0 +1,39 @@
+platform=`uname`
+if [[ $platform == 'Linux' ]]; then
+  alias a='ls -lrth --color'
+elif [[ $platform == 'Darwin' ]]; then
+  alias a='ls -lrthG'
+fi
+
+alias ack='ag'
+alias ack='ack-grep'
+alias aliases='vim ~/dotfiles/zsh/aliases'
+alias web='ssh olivier@web'
+alias c='cd'
+alias v='vim'
+alias ph='cd ~/public_html'
+alias d='cd ~/dotfiles'
+alias gca='git commit -a'
+alias gcm='git commit -m'
+alias get='sudo aptitude install'
+alias gg='git lg'
+alias gst='git status'
+alias gpush="git push"
+alias gp="git push"
+alias gpr="git pull --rebase"
+alias grc="git rebase --continue"
+alias gco="git checkout"
+alias mastre='master'
+alias remore='!! | more'
+alias reless='!! | less'
+alias reguard='killall -9 ruby ; guard'
+alias so='source ~/.dotfiles/zsh/aliases'
+alias u='cd ..'
+alias vu="vagrant up"
+alias vr="vagrant reload"
+alias vp="vagrant provision"
+alias vss="vagrant ssh"
+alias vs="vagrant suspend"
+alias vres="vagrant resume"
+alias l="ls -als"
+
