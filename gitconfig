@@ -1,0 +1,26 @@
+[user]
+    name = Olivier Lechevalier
+    email = o.lechevalier@natureasia.com
+[push]
+    default = current
+[core]
+    excludesfiles=~/.gitignore_global
+[interactive]
+    singlekey = true
+[color]
+    branch = auto
+    diff   = auto
+    status = auto
+[alias]
+    s = status -s
+    a = add
+    c = commit -v
+    ca = commit -av
+    u = reset HEAD
+    b = branch
+    bn = checkout -b
+    co = checkout
+    l = log --oneline --graph
+    lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --graph
+[branch]
+    autosetuprebase = always
