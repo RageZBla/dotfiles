@@ -169,7 +169,7 @@ endif
 " ========================================================================
 
 " easymotion
-
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_use_upper = 1
 
