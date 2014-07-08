@@ -75,6 +75,7 @@ set autoread                        " Reload files that have not been modified
 set autowrite                       " Automatically :write before running commands
 set list                            " Show hidden characters
 set listchars=tab:›\ ,eol:¬,trail:⋅ " Set the characters for the invisibles
+set number
 set relativenumber                  " Show relative line numbers
 set scrolloff=999                   " Keep the cursor centered in the screen
 set showmatch                       " Highlight matching braces
@@ -190,6 +191,16 @@ endfunction
 " Plugin settings
 " ========================================================================
 
+" easymotion
+map <leader>s <Plug>(easymotion-s)
+map <leader>t <Plug>(easymotion-t)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+let g:EasyMotion_use_upper = 1
 " powerline
 set rtp+=~/dotfiles/powerline/powerline/bindings/vim
 let g:Powerline_symbols = 'fancy'
@@ -232,7 +243,7 @@ map Q <Nop>
 " Disable K looking stuff up
 map K <Nop>
 " Leader key
-let mapleader = "\<Space>" " space as leader key
+let mapleader = " " " space as leader key
 
 " clear out search buffer easier
 nmap <silent> ,/ :let @/=""<CR>
@@ -342,7 +353,7 @@ map <C-x> <C-w>c
 " Emacs-like beginning and end of line.
 imap <c-e> <c-o>$
 imap <c-a> <c-o>^
-map <leader>vi :tabe ~/.vimrc
+map <leader>vi :tabe ~/.vimrc<cr>
 
 " ============================================================================
 " Gvim
