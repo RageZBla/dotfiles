@@ -26,21 +26,24 @@ let g:phpgetset_setterTemplate =
      \ "         $this->%varname% = $%varname%;\n" .
      \ "         return $this;\n" .
      \ "    }"
-
+let g:UltiSnipsUsePythonVersion = 2
 set nofoldenable                   " disable code folding
 let g:DisableAutoPHPFolding = 1    " disable autofolding for PHP
 let g:PIVCreateDefaultMappings = 0 " disable creation of default mapping
 let g:pdv_cfg_foldmarke = 0        " disable generation of fold marker for docblocks
 " PIV PHP shortcuts - create single docblock in PHP
-nmap <leader>Pd <plug>PIVphpDocSingle
-vmap <leader>Pd <plug>PIVphpDocRange
+nmap <leader>cd <plug>PIVphpDocSingle
+vmap <leader>cd <plug>PIVphpDocRange
 
 " Pathogen plugin management
+filetype off
 call pathogen#infect()      " Load plugin
 call pathogen#helptags()    " Load plugin help files
 syntax on                   " Syntax highlighting on
 filetype plugin indent on   " Enable filetype-specific indenting and plugins
 
+" powerline
+set rtp+=~/dotfiles/powerline/powerline/bindings/vim
 " ========================================================================
 " General settings
 " ========================================================================
@@ -161,48 +164,20 @@ if has('autocmd')
   autocmd BufWritePre * :%s/\s\+$//e
 endif
 
-" ============================================================================
-" Functions/Macro
-" ============================================================================
-
-" Remove trailling spaces
-fun! <SID>ReplaceTabs()
-    let l = line(".")
-    let c = col(".")
-    %s/\t/    /e
-    call cursor(l, c)
-endfun
-
-" Handle paste in vim from tmux
-fun! <SID>PasteFromTmux()
-    set paste
-    startinsert
-    !tmux paste-buffer -p
-    !tmux send-keys Escape ":set nopaste" Enter
-endfun
-
-" used to paste from tmux
-function! XTermPasteBegin(ret)
-  set paste
-  return a:ret
-endfunction
-
 " ========================================================================
 " Plugin settings
 " ========================================================================
 
 " easymotion
-map <leader>s <Plug>(easymotion-s)
-map <leader>t <Plug>(easymotion-t)
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
 
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_use_upper = 1
-" powerline
-set rtp+=~/dotfiles/powerline/powerline/bindings/vim
+
+"python import sys; sys.path.append("/Library/Python/2.7/site-packages")
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+" python from powerline.ext.vim import source_plugin; source_plugin()
 let g:Powerline_symbols = 'fancy'
 
 " Neocomplete
@@ -243,8 +218,15 @@ map Q <Nop>
 " Disable K looking stuff up
 map K <Nop>
 " Leader key
-let mapleader = " " " space as leader key
+let mapleader = "\<Space>" " space as leader key
 
+" easymotion
+map <leader>l <Plug>(easymotion-lineforward)
+map <leader>j <Plug>(easymotion-j)
+map <leader>k <Plug>(easymotion-k)
+map <leader>h <Plug>(easymotion-linebackward)
+map <leader>f <Plug>(easymotion-bd-f)
+map <leader>t <Plug>(easymotion-bd-t)
 " clear out search buffer easier
 nmap <silent> ,/ :let @/=""<CR>
 
@@ -280,7 +262,7 @@ noremap   <Right>  <NOP>
 
 " Shortcut to yanking to the system clipboard
 map <leader>y "+y
-map <leader>p o<esc>"+p
+map <leader>p "+p
 
 " Let's be reasonable, shall we?
 nmap k gk
@@ -363,7 +345,7 @@ if has("gui_running")
     au GUIEnter * set vb t_vb=
 
     " Set font
-    set guifont=Inconsolata\ for\ Powerline\ Bold\ 12
+    set guifont=Inconsolata\ for\ Powerline\ Bold\ 13
 
 
     " remove superfluous chrome
@@ -377,3 +359,30 @@ if has("gui_running")
     set guioptions-=r
     set guioptions-=b
 endif
+
+" ============================================================================
+" Functions/Macro
+" ============================================================================
+
+" Remove trailling spaces
+fun! <SID>ReplaceTabs()
+    let l = line(".")
+    let c = col(".")
+    %s/\t/    /e
+    call cursor(l, c)
+endfun
+
+" Handle paste in vim from tmux
+fun! <SID>PasteFromTmux()
+    set paste
+    startinsert
+    !tmux paste-buffer -p
+    !tmux send-keys Escape ":set nopaste" Enter
+endfun
+
+" used to paste from tmux
+function! XTermPasteBegin(ret)
+  set paste
+  return a:ret
+endfunction
+
