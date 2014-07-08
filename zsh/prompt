@@ -173,8 +173,8 @@ prompt_newline() {
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
   print
-  [[ -n "$symbols" ]] && print "$symbols%{$reset_color%} "
-
+  [[ -n "$symbols" ]] && echo -n "$symbols%{%f%} "
+  CURRENT_BG=''
 
 }
 
