@@ -136,6 +136,13 @@ set undofile
 set undolevels=1000  " maximum number of changes that can be undone
 set undoreload=10000 " maximum number lines to save for undo on a buffer reload
 
+
+set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
+
+" Don't wait so long for the next keypress (particularly in ambigious Leader
+" situations.
+set timeoutlen=500
+
 " ========================================================================
 " File type related settings
 " ========================================================================
@@ -170,6 +177,7 @@ endif
 
 " easymotion
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
+let g:EasyMotion_leader_key='t'
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_use_upper = 1
 
