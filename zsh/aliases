@@ -36,4 +36,4 @@ alias vss="vagrant ssh"
 alias vs="vagrant suspend"
 alias vres="vagrant resume"
 alias l="ls -als"
-
+alias fergus="ssh olivier@fergus"
