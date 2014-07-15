@@ -5,9 +5,9 @@ elif [[ $platform == 'Darwin' ]]; then
   alias a='ls -lrthG'
 fi
 
-alias ack='ag'
 alias ack='ack-grep'
-alias aliases='vim ~/dotfiles/zsh/aliases'
+alias ag='ack'
+alias aliases='vim ~/dotfiles/zsh/aliases && source ~/dotfiles/zsh/aliases'
 alias web='ssh olivier@web'
 alias c='cd'
 alias v='vim'
@@ -23,6 +23,7 @@ alias gp="git push"
 alias gpr="git pull --rebase"
 alias grc="git rebase --continue"
 alias gco="git checkout"
+alias gli="git checkout master && git pull && git checkout live && git merge master && git pull && git push && git checkout master"
 alias mastre='master'
 alias remore='!! | more'
 alias reless='!! | less'
@@ -37,3 +38,6 @@ alias vs="vagrant suspend"
 alias vres="vagrant resume"
 alias l="ls -als"
 alias fergus="ssh olivier@fergus"
+alias TODO="vim ~/Documents/TODO.mkd"
+alias todo="TODO"
+alias phpunit35="~/software/pear/phpunit35/usr/bin/phpunit"

@@ -64,3 +64,6 @@
 [submodule "vim/bundler/vim-easymotion"]
 	path = vim/bundler/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule "vim/bundle/vim-hardtime"]
+	path = vim/bundle/vim-hardtime
+	url = https://github.com/takac/vim-hardtime.git

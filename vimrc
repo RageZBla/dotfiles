@@ -121,7 +121,7 @@ set smarttab
 set gdefault " assume the /g flag is used for replace
 set autoindent
 set ignorecase smartcase
-set grepprg=ag
+set grepprg=ack-grep
 " (Hopefully) removes the delay when hitting esc in insert mode
 set noesckeys
 set ttimeout
@@ -141,7 +141,7 @@ set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 
 " Don't wait so long for the next keypress (particularly in ambigious Leader
 " situations.
-set timeoutlen=500
+"set timeoutlen=500
 
 " ========================================================================
 " File type related settings
@@ -151,6 +151,9 @@ if has('autocmd')
   autocmd FileType javascript set sw=2
   autocmd FileType javascript set ts=2
   autocmd FileType javascript set sts=2
+
+  " activate vim-hardtime
+  autocmd BufEnter * HardTimeOn
 
   " If we are using PHP, we need 2 spaces indents and not tabs
   autocmd FileType php set sw=4
@@ -174,6 +177,10 @@ endif
 " ========================================================================
 " Plugin settings
 " ========================================================================
+
+" vim-hardtime
+let g:hardtime_maxcount = 2
+let g:hardtime_allow_different_key = 1
 
 " easymotion
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
@@ -229,12 +236,12 @@ map K <Nop>
 let mapleader = "\<Space>" " space as leader key
 
 " easymotion
-map <leader>l <Plug>(easymotion-lineforward)
-map <leader>j <Plug>(easymotion-j)
-map <leader>k <Plug>(easymotion-k)
-map <leader>h <Plug>(easymotion-linebackward)
-map <leader>f <Plug>(easymotion-bd-f)
-map <leader>t <Plug>(easymotion-bd-t)
+"map <leader>l <Plug>(easymotion-lineforward)
+"map <leader>j <Plug>(easymotion-j)
+"map <leader>k <Plug>(easymotion-k)
+"map <leader>h <Plug>(easymotion-linebackward)
+"map <leader>f <Plug>(easymotion-bd-f)
+"map <leader>t <Plug>(easymotion-bd-t)
 " clear out search buffer easier
 nmap <silent> ,/ :let @/=""<CR>
 
