@@ -67,3 +67,9 @@
 [submodule "vim/bundle/vim-hardtime"]
 	path = vim/bundle/vim-hardtime
 	url = https://github.com/takac/vim-hardtime.git
+[submodule "vim/bundler/gundo.vim"]
+	path = vim/bundler/gundo.vim
+	url = http://github.com/sjl/gundo.vim.git
+[submodule "vim/bundle/gundo.vim"]
+	path = vim/bundle/gundo.vim
+	url = http://github.com/sjl/gundo.vim.git

@@ -153,7 +153,8 @@ if has('autocmd')
   autocmd FileType javascript set sts=2
 
   " activate vim-hardtime
-  autocmd BufEnter * HardTimeOn
+  "autocmd BufEnter * HardTimeOn
+  autocmd FileType php,html,phtml HardTimeOn
 
   " If we are using PHP, we need 2 spaces indents and not tabs
   autocmd FileType php set sw=4
@@ -171,7 +172,10 @@ if has('autocmd')
   autocmd! bufwritepost vimrc source %
 
   " Clear whitespace at the end of lines automatically
-  autocmd BufWritePre * :%s/\s\+$//e
+  autocmd BufWritePre * :call <sid>StripTrailingWhitespaces()
+
+  " Save when focus is lost
+  autocmd FocusLost * silent! wa
 endif
 
 " ========================================================================
@@ -181,6 +185,7 @@ endif
 " vim-hardtime
 let g:hardtime_maxcount = 2
 let g:hardtime_allow_different_key = 1
+let g:hardtime_ignore_buffer_patterns = [ "\.git/" ]
 
 " easymotion
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
@@ -226,6 +231,7 @@ let g:ctrlp_user_command = {
 " ========================================================================
 " Key mappings
 " ========================================================================
+
 
 " Disable Ex mode
 map Q <Nop>
@@ -305,7 +311,7 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gr :Gread<CR>
+"nnoremap <silent> <leader>gr :Gread<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>ge :Gedit<CR>
 
@@ -352,6 +358,12 @@ imap <c-e> <c-o>$
 imap <c-a> <c-o>^
 map <leader>vi :tabe ~/.vimrc<cr>
 
+:inoremap <c-f> <C-R>=expand("%:t:r")<CR>
+
+" Disable esc and try to use Ctrl + [ or jj
+" disabled for now because it breaks Ctrl + s
+" inoremap <Esc> <Nop>
+
 " ============================================================================
 " Gvim
 " ============================================================================
@@ -386,6 +398,19 @@ fun! <SID>ReplaceTabs()
     %s/\t/    /e
     call cursor(l, c)
 endfun
+
+" Strip trailing whitespaces
+function! <sid>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
 
 " Handle paste in vim from tmux
 fun! <SID>PasteFromTmux()

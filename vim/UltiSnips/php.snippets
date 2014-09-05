@@ -1,0 +1,113 @@
+# phpspec
+snippet it "Spec example" !b
+function it_${1:does_something}($2)
+{$0
+}
+endsnippet
+
+snippet its "Spec detail example" !b
+function its_${1:detail_does_something}($2)
+{$0
+}
+endsnippet
+
+#php unit
+
+snippet pud "PHPUnit data provider" !b
+/**
+ * @dataProvider ${1:dataProvider}
+ */
+public function test${2:Something}(${3})
+{
+    ${0}
+    $this->assertEquals(
+        $expected,
+        $results
+    );
+}
+
+public function $1()
+{
+    return array(
+        'case' => array(
+            array(),
+            array(),
+        ),
+    );
+}
+endsnippet
+
+# Zend Framework 2
+snippet zff "Zend Framework 2 factory" !b
+<?php
+namespace ${1:Foo\Factory};
+
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\FactoryInterface
+
+
+class ${2:`vim_snippets#Filename()`} implements FactoryInterface
+{
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        ${0}
+    }
+}
+endsnippet
+
+snippet zfc "Zend Framework 2 controller - todo" !b
+<?php
+namespace $
+endsnippet
+
+snippet pum "PHPUnit Mockery test case" !b
+<?php
+namespace Test\${1:Bar};
+
+use PHPUnit_Framework_TestCase as TestCase;
+use Mockery as m;
+
+class ${2:`vim_snippets#Filename()`} extends TestCase
+{
+    public function setUp()
+    {
+    }
+
+    public function tearDown()
+    {
+        m::close();
+    }
+
+    public function testNothing()
+    {
+    }
+}
+endsnippet
+
+# mockery
+
+snippet ms "Mockery should receive" !b
+    ${1:$foobar}
+        ->shouldReceive('${2:method}')
+        ->once()
+        ->with(${3})
+        ->andReturn(${0})
+    ;
+endsnippet
+
+snippet ms "Mockery proxy" !b
+    ${1:$foobar}
+        ->shouldReceive('${2:method}')
+        ->with(${3})
+        ->andReturn(${0})
+    ;
+endsnippet
+
+snippet mm "Mockery mock" !b
+m::mock('${0}');
+endsnippet
+
+snippet mmt "Mockery mock $this" !b
+$this->${1:foobar} = m::mock('${0}');
+endsnippet
+
