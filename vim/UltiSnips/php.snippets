@@ -43,7 +43,7 @@ snippet zff "Zend Framework 2 factory" !b
 namespace ${1:Foo\Factory};
 
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\FactoryInterface
+use Zend\ServiceManager\FactoryInterface;
 
 
 class ${2:`vim_snippets#Filename()`} implements FactoryInterface
@@ -62,15 +62,18 @@ endsnippet
 
 snippet pum "PHPUnit Mockery test case" !b
 <?php
-namespace Test\${1:Bar};
+namespace Test\\${1};
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Mockery as m;
 
 class ${2:`vim_snippets#Filename()`} extends TestCase
 {
+    private ${3:$testedObect};
+
     public function setUp()
     {
+        $this->${3} = new ${4:ClassFQDN}();
     }
 
     public function tearDown()
@@ -80,27 +83,28 @@ class ${2:`vim_snippets#Filename()`} extends TestCase
 
     public function testNothing()
     {
+        $this->markTestIncomplete('foobar');
     }
 }
 endsnippet
 
 # mockery
 
-snippet ms "Mockery should receive" !b
-    ${1:$foobar}
-        ->shouldReceive('${2:method}')
-        ->once()
-        ->with(${3})
-        ->andReturn(${0})
-    ;
+snippet msr "Mockery should receive" !b
+${1:$foobar}
+    ->shouldReceive('${2:method}')
+    ->once()
+    ->with(${3})
+    ->andReturn(${0})
+;
 endsnippet
 
-snippet ms "Mockery proxy" !b
-    ${1:$foobar}
-        ->shouldReceive('${2:method}')
-        ->with(${3})
-        ->andReturn(${0})
-    ;
+snippet msp "Mockery proxy" !b
+${1:$foobar}
+    ->shouldReceive('${2:method}')
+    ->with(${3})
+    ->andReturn(${0})
+;
 endsnippet
 
 snippet mm "Mockery mock" !b

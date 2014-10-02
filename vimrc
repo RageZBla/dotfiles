@@ -56,6 +56,7 @@ set expandtab
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
+set showtabline=1
 
 set encoding=utf-8        " Utf-8 everything
 set fileencodings=utf-8
@@ -128,7 +129,8 @@ set ttimeout
 set ttimeoutlen=1
 
 " Don't add the comment prefix when I hit enter or o/O on a comment line.
-set formatoptions-=or
+"set formatoptions-=or
+set formatoptions=qrn1
 
 " Undo everything
 set undodir=~/.vim/undo
@@ -142,41 +144,6 @@ set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 " Don't wait so long for the next keypress (particularly in ambigious Leader
 " situations.
 "set timeoutlen=500
-
-" ========================================================================
-" File type related settings
-" ========================================================================
-if has('autocmd')
-  " If we are using Javascript, we need 2 spaces indents and not tabs
-  autocmd FileType javascript set sw=2
-  autocmd FileType javascript set ts=2
-  autocmd FileType javascript set sts=2
-
-  " activate vim-hardtime
-  "autocmd BufEnter * HardTimeOn
-  autocmd FileType php,html,phtml HardTimeOn
-
-  " If we are using PHP, we need 2 spaces indents and not tabs
-  autocmd FileType php set sw=4
-  autocmd FileType php set ts=4
-  autocmd FileType php set sts=4
-
-  " Git commit messages need love too
-  autocmd Filetype gitcommit setlocal spell textwidth=72
-
-  " vimrc
-  autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
-
-  " reload vimrc automatically
-  autocmd! bufwritepost .vimrc source %
-  autocmd! bufwritepost vimrc source %
-
-  " Clear whitespace at the end of lines automatically
-  autocmd BufWritePre * :call <sid>StripTrailingWhitespaces()
-
-  " Save when focus is lost
-  autocmd FocusLost * silent! wa
-endif
 
 " ========================================================================
 " Plugin settings
@@ -391,6 +358,19 @@ endif
 " Functions/Macro
 " ============================================================================
 
+" this should be included by vim snippet but does not work somehow
+fun! vim_snippets#Filename(...)
+  let template = get(a:000, 0, "$1")
+  let arg2 = get(a:000, 1, "")
+
+  let basename = expand('%:t:r')
+
+  if basename == ''
+    return arg2
+  else
+    return substitute(template, '$1', basename, 'g')
+  endif
+endf
 " Remove trailling spaces
 fun! <SID>ReplaceTabs()
     let l = line(".")
@@ -425,4 +405,65 @@ function! XTermPasteBegin(ret)
   set paste
   return a:ret
 endfunction
+
+" create directory for current buffer
+function! <sid>MkdirsIfNotExists(directory)
+    if(!isdirectory(a:directory))
+        call system('mkdir -p '.shellescape(a:directory))
+    endif
+endfunction
+" ========================================================================
+" File type related settings
+" ========================================================================
+if has('autocmd')
+  augroup GeneralConfig
+    au FocusLost silent! :wa
+    au FileType helpfile setlocal nonumber
+  augroup END
+
+  augroup FileTypes
+    autocmd!
+    au BufRead,BufNewFile *.php         setlocal filetype=php iskeyword-=$
+    au BufRead,BufNewFile *.twig        setlocal filetype=jinja
+    au BufRead,BufNewFile *.html.twig   setlocal filetype=htmljinja
+    au BufRead,BufNewFile *.js.twig     setlocal filetype=javascript
+    au BufRead,BufNewFile *.ejs         setlocal filetype=html
+    au BufRead,BufNewFile *.json        setlocal filetype=javascript
+    au BufRead,BufNewFile *.pp          setlocal filetype=ruby
+  augroup END
+
+
+  augroup TabsConfig
+    autocmd!
+    au BufRead,BufNewFile *.feature setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au BufRead,BufNewFile *.css     setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au BufRead,BufNewFile *.scss    setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au BufRead,BufNewFile *.less    setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au BufRead,BufNewFile *.ruby    setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au BufRead,BufNewFile *.js      setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au BufRead,BufNewFile *.coffee  setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au BufRead,BufNewFile vim       setlocal tabstop=8 shiftwidth=2 softtabstop=2
+    au Filetype gitcommit setlocal spell textwidth=72
+  augroup END
+
+  " activate vim-hardtime
+  augroup HardTime
+    autocmd!
+    au BufRead,BufNewFile *.php,*.html,*.phtml HardTimeOn
+  augroup END
+
+  " reload vimrc automatically
+  augroup Vim
+    autocmd!
+    au bufwritepost .vimrc source %
+    au bufwritepost vimrc source %
+  augroup END
+
+  augroup Commands
+      autocmd!
+      au BufWrite *.php,*.js,*.feature,*.json :call <sid>StripTrailingWhitespaces()
+      au BufWrite * :call <sid>MkdirsIfNotExists(expand('<afile>:h'))
+  augroup END
+
+endif
 
